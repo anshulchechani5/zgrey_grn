@@ -1,0 +1,337 @@
+<mvc:View controllerName="zproductionorder.controller.ProductionOrder"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table" >
+    <Page id="page" title="{i18n>title}">
+        <content>
+                <!-- <f:SimpleForm columnsL="3" layout="ResponsiveGridLayout" id="FirstSimpleForm" editable="false">
+                    <f:content> -->
+                    <FlexBox id="f1" >
+                        <!-- <core:Title /> -->
+                        <VBox  id="f2" width="90px" class="sapUiSmallMarginEnd">
+                             <Label id="pt" design="Bold" text="Plant" />
+                            <!-- <Input width="90px" id="Plant" value="{plant>/oplant}" maxLength="4" editable="false"/>  -->
+                            <ComboBox id="Plant" value="{plant>/oplant}"  change="" width="90px" selectedKey="1300">
+                                <items>
+                                    <core:Item key= "1100" id="P1" text="1100"/>
+                                    <core:Item key= "1200" id="P2" text="1200" />
+                                    <core:Item key= "1300" id="P3" text="1300" />
+                                    <core:Item key= "1300" id="P6" text="1310" />
+                                    <core:Item key= "1400" id="P4" text="1400" />
+                                    <core:Item key= "2100" id="P5" text="2100" />
+                                </items>
+                            </ComboBox> 
+                        </VBox>
+                        <VBox id="f3" width="250px" class="sapUiSmallMarginEnd">
+                           <Label id="dt" text="Date" design="Bold" />
+                            <DatePicker width="120px" displayFormat="yyyy-MM-dd"  value="{oDateModel>/dDefaultDate}" valueFormat="yyyy-MM-dd" id="Fromdt" editable="true"/>
+                        </VBox>
+                        <VBox id="f4" width="250px" class="sapUiSmallMarginEnd">
+                            <Label id="op" design="Bold" text="Operator Code" />
+                            <ComboBox items="{path : '/OPTNAME'}" width="180px"  change="matdesc"   showSecondaryValues="true" id="OperatorCode" >
+                            <items>
+                                <core:ListItem id="perator" text="{Empname}" key="{Empname}" additionalText="{Plant}"/>
+                            </items>
+                            </ComboBox>
+                        </VBox>
+                        <VBox  id="f5" width="4000px" class="sapUiSmallMarginEnd">
+                            <Label id="ShiftLab" design="Bold" text="Shift" />
+                            <ComboBox id="Shift" change="" width="50px" selectedKey="Option1">
+                                <items>
+                                    <core:Item key= "Option1" id="com1" text="A"/>
+                                    <core:Item key= "Option2" id="com2" text="B" />
+                                    <core:Item key= "Option3" id="com3" text="C" />
+                                </items>
+                            </ComboBox> 
+                        </VBox>
+                        <VBox  id="f901" width="450px" class="sapUiSmallMarginEnd">  
+                            <Label id="Sumbit" design="Bold" text="Submit" />                     
+                            <Button id="ol" icon="sap-icon://complete" press="ONSUMIT"/>
+                        </VBox>
+                        <VBox  id="f90" width="550px" class="sapUiSmallMarginEnd">                       
+                            <Button id="ol0" icon="sap-icon://arrow-right" press="EmptyRowFound"/>
+                        </VBox>
+                        <VBox  id="f6" width="550px" class="sapUiSmallMarginEnd">                       
+                            <Label id="tp" design="Bold" text="Total Pieces" />
+                             <Input width="100px" id="TotalPieces" editable="false"/>
+                        </VBox>
+                         <VBox id="f7" width="250px" class="sapUiSmallMarginEnd">     
+                            <Label id="tm" design="Bold" text="Total Mtr" />
+                            <Input width="100px" id="TotalQty" editable="false"/>
+                         </VBox>
+                        <VBox  id="f8" width="250px" class="sapUiSmallMarginEnd"> 
+                            <Label id="tw" design="Bold" text="Total Weight" />
+                            <Input width="100px" id="TotalWeight" editable="false"/>
+                        </VBox>
+                       
+                    </FlexBox>
+                       
+                <table:Table id="table1" class="CssForTable" editable="true"  rowHeight="10rem" rows="{oFirstTableDataModel>/aFirstTableData}" visibleRowCount="{oRowVisibleModel>/RowVisible}">
+                    <table:extension>
+                        <OverflowToolbar id="oftb" style="Clear">
+                            <Label id="be" design="Bold" text="Beam" />
+                            <Input width="100px" id="beamw" maxLength="10" editable="true"/>
+                            <Button id="button1" icon="sap-icon://add" tooltip="Add Table records" press="onAdd"/>
+                            <ToolbarSpacer id="tbs" />
+                            <Button id="button2" icon="sap-icon://delete" tooltip="Delete Table records" press="DeletaTableData"/>
+                        </OverflowToolbar>
+                    </table:extension>
+                    <table:columns>
+                       <table:Column id="tc32" width="4rem">
+                            <Label id="p1" text="S.No." />
+                            <table:template>
+                                <Input id="serialno" editable="false" maxLength="2" value="{oFirstTableDataModel>sno}" />
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc1" width="7rem">
+                            <Label id="p2" text="Beam" />
+                            <table:template>
+                                <Input editable="{oCommonModel>/visible}" maxLength="10" id="Batch" value="{oFirstTableDataModel>Batch}" submit="onRead"/>
+                            </table:template>
+                        </table:Column>
+                       <table:Column id="tc8" width="7rem">
+                            <Label id="p4" text="Piece" />
+                            <table:template>
+                                <Input id="recb" editable="{oCommonModel>/visible}" maxLength="10"  submit="Recbatch" value="{oFirstTableDataModel>RecBatch}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc13" width="5rem">
+                            <Label id="p11" text="Loom No" />
+                            <table:template>
+                                <Input id="lno" editable="false" value="{oFirstTableDataModel>Loomno}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc1L" width="7rem">
+                            <Label id="p11L" text="Set No." />
+                            <table:template>
+                                <Input id="SETNO" editable="false" value="{oFirstTableDataModel>setno}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc17" width="11rem">
+                            <Label id="p13" text="Quality Des." />
+                            <table:template>
+                                <Input id="qltydes" editable="false" value="{oFirstTableDataModel>MaterialDec}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc39" width="7rem">
+                            <Label id="p5" text="Roll No." />
+                            <table:template>
+                                <Input id="rno" editable="{oCommonModel>/visible}" maxLength="10" liveChange="Recbatch"  submit="Recbatch" value="{oFirstTableDataModel>rollno}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc12" width="7rem">
+                            <Label id="p3" text="Flenge No." />
+                            <table:template>
+                                <Input editable="false"   id="beam" value="{oFirstTableDataModel>Partybeam}" />
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc90" width="7rem">
+                            <Label id="p90" text="Pick" />
+                            <table:template>
+                                <Input   editable="{oCommonModel>/visible}"  id="pick" value="{oFirstTableDataModel>Pick}" />
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc89" width="7rem">
+                            <Label id="p89" text="Party Name" />
+                            <table:template>
+                                <Input   editable="false"  id="party" value="{oFirstTableDataModel>Partyname}" />
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc9" width="5rem">
+                            <Label id="p6" text="Quantity" />
+                            <table:template>
+                                <Input id="qty" editable="{oCommonModel>/visible}"   value="{oFirstTableDataModel>Quantity}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc11" width="5rem">
+                            <Label id="p7" text="Net Wt" />
+                            <table:template>
+                                <Input id="wpmtr" editable="{oCommonModel>/visible}" submit="WTMTER" liveChange="WTMTER"   value="{oFirstTableDataModel>NetWt}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc111" width="5rem">
+                            <Label id="p711" text="Iron Pipe" />
+                            <table:template>
+                                <Input id="ironpip" submit="WTMTER" liveChange="WTMTER"  editable="{oCommonModel>/visible}"    value="{oFirstTableDataModel>ironpipe}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc1111" width="5rem">
+                            <Label id="p71" text="Gross Wt" />
+                            <table:template>
+                                <Input id="groswt" editable="false"    value="{oFirstTableDataModel>grossWt}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc6" width="5rem">
+                            <Label id="p10" text="Wt/Mtr" />
+                            <table:template>
+                                <Input id="wtmtr" editable="false" value="{oFirstTableDataModel>wtmtr}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc4" width="6rem">
+                            <Label id="p8" text="STD Wt" />
+                            <table:template>
+                                <Input id="stdwt" editable="false"  value="{oFirstTableDataModel>stdwt}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc412" width="12rem">
+                            <Label id="p81" text="Selvedge" />
+                            <table:template>
+                            <Input id="a63" value="{oFirstTableDataModel>selvedge}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequest">
+								<customData>
+									<core:CustomData key="VC" />
+								</customData>
+							</Input>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc18" width="6rem">
+                            <Label id="p9" text="Target Qty" />
+                            <table:template>
+                                <Input id="tqty" editable="false" value="{oFirstTableDataModel>TargetQty}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc333" width="11rem">
+                            <Label id="p1232" text="GR Qty" />
+                            <table:template>
+                                <Input id="qu" editable="false" value="{oFirstTableDataModel>Grqty}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc3" width="11rem">
+                            <Label id="p12" text="Quality" />
+                            <table:template>
+                                <Input id="qulty" editable="false" value="{oFirstTableDataModel>Material}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc2" width="7rem">
+                            <Label id="p14" text="Order" />
+                            <table:template>
+                                <Input id="order" editable="false" maxLength="12" value="{oFirstTableDataModel>ProdOrder}" />
+                            </table:template>
+                        </table:Column>   
+                        <table:Column id="tc7" width="7rem">
+                            <Label id="p15" text="SLoc" />
+                            <table:template>
+                                <Input id="sloc" editable="false"  value="{oFirstTableDataModel>Sloc}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc10" width="3rem">
+                            <Label id="p16" text="UOM" />
+                            <table:template>
+                                <Input id="uom" editable="false" value="{oFirstTableDataModel>Uom}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc16" width="8rem">
+                            <Label id="p17" text="Shade No" />
+                            <table:template>
+                                <Input id="shadeno" editable="{oCommonModel>/visible}"  value="{oFirstTableDataModel>shadeno}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc5" width="9rem">
+                            <Label id="p18" text="Remark" />
+                            <table:template>
+                                <Input id="remk" editable="{oCommonModel>/visible}" value="{oFirstTableDataModel>Remark}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc161" width="8rem">
+                            <Label id="p171" text="Sales Order" />
+                            <table:template>
+                                <Input id="sord" editable="false"  value="{oFirstTableDataModel>salorder}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc531" width="9rem">
+                            <Label id="p181" text="So Item" />
+                            <table:template>
+                                <Input id="soite" editable="false" value="{oFirstTableDataModel>soitem}"/>
+                            </table:template>
+                        </table:Column>      
+                    </table:columns>
+                </table:Table>
+                <table:Table id="table2" class="CssForTable" editable="true"     width="auto" rows="{oFirstTableDataModel1>/aFirstTableData1}" visibleRowCount="{oRowVisibleModel>/RowVisible}">
+                    <table:columns>
+                       <table:Column id="tc55" width="4rem">
+                            <Label id="p56" text="S.No." />
+                            <table:template>
+                                <Input id="sno" editable="false" maxLength="2" value="{oFirstTableDataModel1>sno}" />
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="2tc1" width="10rem">
+                            <Label id="1p2" text="Production Order" />
+                            <table:template>
+                                <Input id="oord" editable="false" value="{oFirstTableDataModel1>productionorder}" />
+                            </table:template>
+                        </table:Column>
+                       <table:Column id="t2c8" width="10rem">
+                            <Label id="p4221" text="Material" />
+                            <table:template>
+                                <Input id="mat" editable="false" value="{oFirstTableDataModel1>material}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc143" width="10rem">
+                            <Label id="p131" text="Descerption" />
+                            <table:template>
+                                <Input id="desc" editable="false" value="{oFirstTableDataModel1>description}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc21L" width="7rem">
+                            <Label id="p121L" text="Location" />
+                            <table:template>
+                                <Input id="loc" editable="false" value="{oFirstTableDataModel1>loc}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc173" width="7rem">
+                            <Label id="p133" text="Batch" />
+                            <table:template>
+                                <Input id="atch" editable="true" value="{oFirstTableDataModel1>batch}"/>
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc329" width="7rem">
+                            <Label id="p542" text="Quantity" />
+                            <table:template>
+                                <Input id="qty2" editable="true" value="{oFirstTableDataModel1>quantity}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc122" width="7rem">
+                            <Label id="p123" text="Target Quantity" />
+                            <table:template>
+                                <Input    id="targetqt" editable="false" value="{oFirstTableDataModel1>targetquantity}" />
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc900" width="7rem">
+                            <Label id="p909" text="Unit" />
+                            <table:template>
+                                <Input     id="unit" editable="false" value="{oFirstTableDataModel1>unit}" />
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc859" width="7rem">
+                            <Label id="pd59" text="Sales Order" />
+                            <table:template>
+                                <Input   editable="false"  id="salesorder" value="{oFirstTableDataModel1>salesorder}" />
+                            </table:template>
+                        </table:Column>
+                         <table:Column id="tc579" width="5rem">
+                            <Label id="p576" text="So item" />
+                            <table:template>
+                                <Input id="soitem"    value="{oFirstTableDataModel1>soitem}"/>
+                            </table:template>
+                        </table:Column>
+                        <table:Column id="tc57" width="7rem">
+                            <Label id="p57" text="Set Number" />
+                            <table:template>
+                                <Input id="indr" value="{oFirstTableDataModel1>ind}"/>
+                            </table:template>
+                        </table:Column>
+                         
+                    </table:columns>
+                </table:Table> 
+               
+
+        </content>
+        <footer>
+            <Bar id="bar">
+                <contentRight>
+                    <Button id="btsave" icon="sap-icon://save" text="Save" type="Emphasized" press="savedata1" visible="{}"/>
+                  
+                </contentRight>
+            </Bar>
+        </footer>
+
+    </Page>
+</mvc:View>
